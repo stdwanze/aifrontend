@@ -57,13 +57,13 @@ audioRecorder.on('close', async function () {
 });
 
 const porcupine = new Porcupine(
-    config.porcupine,
+     config.porcupine,
     [BuiltinKeyword.COMPUTER],
     [0.5]
 );
 
 const recorder = new PvRecorder(porcupine.frameLength, -1);
-const openai = new OpenAI({ apiKey: config.openai  });
+const openai = new OpenAI({ apiKey: config.openai });
 
 async function postAudio(){
     
@@ -116,7 +116,7 @@ function playWaitConditionaly(){
         console.log("wait is true");
         wait();
     }
-    setTimeout(5000,playWaitConditionaly);
+    setTimeout(playWaitConditionaly,5000);
 }
 
 async function start() {
