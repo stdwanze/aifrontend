@@ -12,7 +12,9 @@
     "@picovoice/porcupine-node": "^3.0.6",
     "@picovoice/pvrecorder-node": "^1.2.6",
     "axios": "^1.8.1",
+    "body-parser": "^2.2.0",
     "node-audiorecorder": "^3.0.0",
-    "openai": "^4.85.4"
+    "openai": "^4.85.4",
+    "polka": "^0.5.2"
   }
 }
