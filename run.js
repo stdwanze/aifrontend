@@ -142,6 +142,7 @@ async function start() {
         const index = porcupine.process(frames);
         if (index !== -1) {
 
+            recorder.stop();
             const fileStream = fs.createWriteStream("sound.wav", { encoding: 'binary' });
             beep();
             
