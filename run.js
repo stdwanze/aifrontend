@@ -37,6 +37,10 @@ let audioRecorder = new AudioRecorder(options, console);
 audioRecorder.on('error', function () {
     console.warn('Recording error.');
   });
+  audioRecorder.on('any', function () {
+    console.warn('event ');
+  });
+
 audioRecorder.on('close', async function () {
     console.warn('Recording ended.');
     audioRecorder.stop();
@@ -142,17 +146,19 @@ async function start() {
         const index = porcupine.process(frames);
         if (index !== -1) {
 
-            porcupine.release();
-            recorder.stop();
+           
             const fileStream = fs.createWriteStream("sound.wav", { encoding: 'binary' });
             beep();
             
-            
-            audioRecorder
-            .start()
-            .stream()
-            .pipe(fileStream);
-
+            console.log("beeped and fileopened");
+            audioRecorder = audioRecorder.start();
+            console.log("started");
+         
+            audioRecorder = audioRecorder.stream();
+            console.log("streamed");
+            audioRecorder = audioRecorder.pipe(fileStream);
+          
+            console.log("piped");
 
             console.log(`Detected 'COMPUTER'`);
         }
