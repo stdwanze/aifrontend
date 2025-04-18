@@ -8,7 +8,8 @@ const axios = require('axios');
 const {setupAndListen} = require('./playResponse');
 const { config } = require("./config");
 let _wait = false;
-let player ="aplay -D 'plughw:1,0'";
+let player ="aplay -D 'plughw:1'";
+//let player = "afplay";
 const options = {
     program: `sox`, // Which program to use, either `arecord`, `rec`, or `sox`.
     device: null, // Recording device to use, e.g. `hw:1,0`
@@ -34,10 +35,13 @@ audioRecorder.on('close', async function () {
     audioRecorder.stop();
     
     transcribe();
-
+    let start = new Date();
     let transcription = {
         text: await postAudio()
     };
+    let transcribed = new Date();
+
+    console.log(transcribed-start);
     /*const transcription = await openai.audio.transcriptions.create({
         file: fs.createReadStream("sound.wav"),
         model: "whisper-1",
@@ -46,7 +50,7 @@ audioRecorder.on('close', async function () {
     console.log(JSON.stringify(transcription) + " send it"); 
     await axios({
         method: 'post',
-        url: 'http://192.168.1.215:5678/webhook/7c6341df-c6d3-4ab6-ae3f-cc04afbaa7c1',
+        url: 'http://192.168.1.216:5678/webhook/7c6341df-c6d3-4ab6-ae3f-cc04afbaa7c1',
         //url: 'https://localhost/webhook/7c6341df-c6d3-4ab6-ae3f-cc04afbaa7c1',
         data: {
           transcription
@@ -87,7 +91,7 @@ async function postAudio(){
 
 }
 function beep() {
-    exec(player+' beep.mp3', () => { console.log("played") });
+    exec(player+' beep.wav', () => { console.log("played") });
 
 }
 function think()
@@ -99,7 +103,7 @@ function transcribe(){
     exec(player+' erkenne.wav', () => { console.log("played") });
 }
 function wait(){
-    exec(player+' wait.mp3', () => { console.log("played") });
+    exec(player+' wait.wav', () => { console.log("played") });
 }
 function playResponse(){
     exec(player+' audio.wav', () => { console.log("played") });
