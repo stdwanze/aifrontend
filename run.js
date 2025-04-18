@@ -14,7 +14,7 @@ const options = {
     //program: `sox`, // Which program to use, either `arecord`, `rec`, or `sox`.
     //device: "plughw:0", // Recording device to use, e.g. `hw:1,0`
 
-    program: `arecord`, // Which program to use, either `arecord`, `rec`, or `sox`.
+    program: `rec`, // Which program to use, either `arecord`, `rec`, or `sox`.
     device: "plughw:0,0", // Recording device to use, e.g. `hw:1,0`
   
     bits: 16, // Sample size. (only for `rec` and `sox`)
@@ -33,9 +33,13 @@ const options = {
 
 setupAndListen(setWaitToFalse,playResponse);
 let audioRecorder = new AudioRecorder(options, console);
-audioRecorder.on('end', async function () {
+
+audioRecorder.on('error', function () {
+    console.warn('Recording error.');
+  });
+audioRecorder.on('close', async function () {
     console.warn('Recording ended.');
-   // audioRecorder.stop();
+    audioRecorder.stop();
     
     transcribe();
     let start = new Date();
@@ -140,6 +144,7 @@ async function start() {
 
             const fileStream = fs.createWriteStream("sound.wav", { encoding: 'binary' });
             beep();
+            
             
             audioRecorder
             .start()
