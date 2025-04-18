@@ -33,9 +33,9 @@ const options = {
 
 setupAndListen(setWaitToFalse,playResponse);
 let audioRecorder = new AudioRecorder(options, console);
-audioRecorder.on('close', async function () {
+audioRecorder.on('end', async function () {
     console.warn('Recording ended.');
-    audioRecorder.stop();
+   // audioRecorder.stop();
     
     transcribe();
     let start = new Date();
