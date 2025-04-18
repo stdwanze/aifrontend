@@ -11,9 +11,12 @@ let _wait = false;
 let player ="aplay -D 'plughw:1'";
 //let player = "afplay";
 const options = {
-    program: `sox`, // Which program to use, either `arecord`, `rec`, or `sox`.
-    device: "plughw:0", // Recording device to use, e.g. `hw:1,0`
+    //program: `sox`, // Which program to use, either `arecord`, `rec`, or `sox`.
+    //device: "plughw:0", // Recording device to use, e.g. `hw:1,0`
 
+    program: `arecord`, // Which program to use, either `arecord`, `rec`, or `sox`.
+    device: "plughw:0,0", // Recording device to use, e.g. `hw:1,0`
+  
     bits: 16, // Sample size. (only for `rec` and `sox`)
     channels: 1, // Channel count.
     encoding: `signed-integer`, // Encoding type. (only for `rec` and `sox`)
